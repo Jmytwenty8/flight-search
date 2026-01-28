@@ -25,8 +25,10 @@ import type { FlightSearchRequest } from "@/features/flights/schemas";
 import { Plane } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CurrencySelector } from "@/components/currency-selector";
+import { useNavigate } from "react-router";
 
 export function FlightSearchPage() {
+    const navigate = useNavigate();
     const { searchRequest, setSearchRequest } = useFlightSearchParams();
     const { filters, setFilters, clearFilters, hasActiveFilters } = useFlightFilters();
     const { sortBy, setSortBy } = useSortBy();
@@ -98,13 +100,17 @@ export function FlightSearchPage() {
     const hasResults = data?.success && allFlights.length > 0;
     const showResults = searchRequest && (isLoading || hasResults || isError);
 
+    const handleRootNavigate = () => {
+        navigate("/");
+    }
+
     return (
         <div className="min-h-screen bg-background">
             {/* Header */}
             <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 border-b">
                 <div className="container mx-auto px-4 py-4">
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3" onClick={handleRootNavigate}>
                             <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-primary-foreground">
                                 <Plane className="h-5 w-5" />
                             </div>
