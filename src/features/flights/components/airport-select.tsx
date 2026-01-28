@@ -21,10 +21,11 @@ import { useDebouncedValue } from "../hooks";
 
 interface AirportSelectProps {
     value: string;
-    onChange: (value: string) => void;
+    onChange: (value: string, airport?: AirportOption) => void;
     placeholder?: string;
     label?: string;
     excludeAirport?: string;
+    selectedAirport?: AirportOption | null;
 }
 
 export function AirportSelect({
@@ -33,10 +34,14 @@ export function AirportSelect({
     placeholder = "Select airport",
     label,
     excludeAirport,
+    selectedAirport: externalSelectedAirport,
 }: AirportSelectProps) {
     const [open, setOpen] = React.useState(false);
     const [searchQuery, setSearchQuery] = React.useState("");
-    const [selectedAirport, setSelectedAirport] = React.useState<AirportOption | null>(null);
+    const [internalSelectedAirport, setInternalSelectedAirport] = React.useState<AirportOption | null>(null);
+
+    // Use external selectedAirport if provided, otherwise use internal state
+    const selectedAirport = externalSelectedAirport !== undefined ? externalSelectedAirport : internalSelectedAirport;
 
     // Debounce the search query for API calls
     const debouncedQuery = useDebouncedValue(searchQuery, 300);
@@ -44,17 +49,19 @@ export function AirportSelect({
     // Use TanStack Query for airport search
     const { data: airports = [], isLoading } = useAirportSearch(debouncedQuery);
 
-    // Find selected airport from search results
+    // Find selected airport from search results (only for internal state)
     React.useEffect(() => {
-        if (value) {
-            const found = airports.find((a) => a.id === value);
-            if (found) {
-                setSelectedAirport(found);
+        if (externalSelectedAirport === undefined) {
+            if (value) {
+                const found = airports.find((a) => a.id === value);
+                if (found) {
+                    setInternalSelectedAirport(found);
+                }
+            } else {
+                setInternalSelectedAirport(null);
             }
-        } else {
-            setSelectedAirport(null);
         }
-    }, [value, airports]);
+    }, [value, airports, externalSelectedAirport]);
 
     const filteredAirports = React.useMemo(() => {
         return excludeAirport
@@ -117,8 +124,10 @@ export function AirportSelect({
                                                 key={airport.id}
                                                 value={airport.id}
                                                 onSelect={() => {
-                                                    onChange(airport.id);
-                                                    setSelectedAirport(airport);
+                                                    onChange(airport.id, airport);
+                                                    if (externalSelectedAirport === undefined) {
+                                                        setInternalSelectedAirport(airport);
+                                                    }
                                                     setOpen(false);
                                                     setSearchQuery("");
                                                 }}

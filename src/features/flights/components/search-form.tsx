@@ -15,6 +15,7 @@ import { AirportSelect } from "./airport-select";
 import { DatePicker } from "./date-picker";
 import { DateRangePicker } from "./date-range-picker";
 import type { FlightSearchRequest } from "../schemas";
+import type { AirportOption } from "../api";
 
 interface SearchFormProps {
   initialValues?: Partial<FlightSearchRequest>;
@@ -25,6 +26,10 @@ interface SearchFormProps {
 export function SearchForm({ initialValues, onSearch, isLoading }: SearchFormProps) {
   const [departure, setDeparture] = React.useState(initialValues?.departure_id || "");
   const [arrival, setArrival] = React.useState(initialValues?.arrival_id || "");
+
+  // Track the full airport objects for display
+  const [departureAirport, setDepartureAirport] = React.useState<AirportOption | null>(null);
+  const [arrivalAirport, setArrivalAirport] = React.useState<AirportOption | null>(null);
 
   // For one-way trips
   const [outboundDate, setOutboundDate] = React.useState<Date | undefined>(
@@ -94,9 +99,29 @@ export function SearchForm({ initialValues, onSearch, isLoading }: SearchFormPro
   ]);
 
   const handleSwapAirports = () => {
-    const temp = departure;
+    // Swap IATA codes
+    const tempCode = departure;
     setDeparture(arrival);
-    setArrival(temp);
+    setArrival(tempCode);
+
+    // Swap airport objects
+    const tempAirport = departureAirport;
+    setDepartureAirport(arrivalAirport);
+    setArrivalAirport(tempAirport);
+  };
+
+  const handleDepartureChange = (value: string, airport?: AirportOption) => {
+    setDeparture(value);
+    if (airport) {
+      setDepartureAirport(airport);
+    }
+  };
+
+  const handleArrivalChange = (value: string, airport?: AirportOption) => {
+    setArrival(value);
+    if (airport) {
+      setArrivalAirport(airport);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -209,10 +234,11 @@ export function SearchForm({ initialValues, onSearch, isLoading }: SearchFormPro
           <div className="space-y-3">
             <AirportSelect
               value={departure}
-              onChange={setDeparture}
+              onChange={handleDepartureChange}
               label="From"
               placeholder="Where from?"
               excludeAirport={arrival}
+              selectedAirport={departureAirport}
             />
 
             <div className="flex justify-center">
@@ -222,7 +248,7 @@ export function SearchForm({ initialValues, onSearch, isLoading }: SearchFormPro
                 size="icon"
                 className="h-8 w-8 rounded-full"
                 onClick={handleSwapAirports}
-                disabled={!departure && !arrival}
+                disabled={!departure || !arrival}
                 aria-label="Swap airports"
               >
                 <ArrowRightLeft className="h-4 w-4 rotate-90" />
@@ -231,10 +257,11 @@ export function SearchForm({ initialValues, onSearch, isLoading }: SearchFormPro
 
             <AirportSelect
               value={arrival}
-              onChange={setArrival}
+              onChange={handleArrivalChange}
               label="To"
               placeholder="Where to?"
               excludeAirport={departure}
+              selectedAirport={arrivalAirport}
             />
           </div>
 
