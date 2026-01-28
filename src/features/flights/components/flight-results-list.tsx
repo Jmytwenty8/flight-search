@@ -19,6 +19,7 @@ interface FlightResultsListProps {
   onSortChange: (sort: "price" | "duration" | "departure" | "arrival") => void;
   totalResults: number;
   filteredCount: number;
+  currency?: string;
 }
 
 export function FlightResultsList({
@@ -29,6 +30,7 @@ export function FlightResultsList({
   onSortChange,
   totalResults,
   filteredCount,
+  currency = "INR",
 }: FlightResultsListProps) {
   if (isLoading) {
     return (
@@ -104,6 +106,7 @@ export function FlightResultsList({
               flight={flight}
               rank={index + 1}
               isBestFlight
+              currency={currency}
             />
           ))}
         </div>
@@ -119,6 +122,7 @@ export function FlightResultsList({
             <FlightCard
               key={flight.booking_token || `other-${index}`}
               flight={flight}
+              currency={currency}
             />
           ))}
         </div>

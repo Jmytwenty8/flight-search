@@ -34,6 +34,7 @@ interface PriceGraphProps {
   filteredFlights: FlightResult[];
   isLoading?: boolean;
   filterRange?: { min: number; max: number };
+  currency?: string;
 }
 
 type TimeInterval = "7d" | "14d" | "1m" | "2m";
@@ -107,6 +108,7 @@ export function PriceGraph({
   filteredFlights,
   isLoading,
   filterRange,
+  currency = "INR",
 }: PriceGraphProps) {
   const [timeInterval, setTimeInterval] = React.useState<TimeInterval>("14d");
 
@@ -205,19 +207,19 @@ export function PriceGraph({
           <div>
             <p className="text-xs text-muted-foreground">Lowest</p>
             <p className="text-lg font-bold text-green-600">
-              {formatPrice(currentLowest)}
+              {formatPrice(currentLowest, currency)}
             </p>
           </div>
           <div>
             <p className="text-xs text-muted-foreground">Average</p>
             <p className="text-lg font-bold">
-              {formatPrice(currentAvg)}
+              {formatPrice(currentAvg, currency)}
             </p>
           </div>
           <div>
             <p className="text-xs text-muted-foreground">Highest</p>
             <p className="text-lg font-bold text-muted-foreground">
-              {formatPrice(currentHighest)}
+              {formatPrice(currentHighest, currency)}
             </p>
           </div>
         </div>
@@ -263,7 +265,7 @@ export function PriceGraph({
                     formatter={(value, _name, item) => {
                       const isPredicted = item.payload?.isPredicted;
                       return [
-                        `${formatPrice(value as number)}${isPredicted ? " (forecast)" : " (today)"}`,
+                        `${formatPrice(value as number, currency)}${isPredicted ? " (forecast)" : " (today)"}`,
                         "Price"
                       ];
                     }}
@@ -332,8 +334,8 @@ export function PriceGraph({
           <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/50 p-2 rounded">
             <Info className="h-3 w-3" />
             <span>
-              Showing flights between {formatPrice(filterRange.min)} -{" "}
-              {formatPrice(filterRange.max)}
+              Showing flights between {formatPrice(filterRange.min, currency)} -{" "}
+              {formatPrice(filterRange.max, currency)}
             </span>
           </div>
         )}

@@ -63,9 +63,68 @@ describe("formatPrice", () => {
     expect(formatPrice(1234, "USD")).toBe("$1,234");
   });
 
-  it("handles different currencies", () => {
-    expect(formatPrice(500, "EUR")).toContain("500");
-    expect(formatPrice(500, "GBP")).toContain("500");
+  it("formats EUR correctly", () => {
+    const result = formatPrice(500, "EUR");
+    expect(result).toContain("500");
+    expect(result).toContain("€");
+  });
+
+  it("formats GBP correctly", () => {
+    const result = formatPrice(500, "GBP");
+    expect(result).toContain("500");
+    expect(result).toContain("£");
+  });
+
+  it("formats JPY correctly", () => {
+    const result = formatPrice(500, "JPY");
+    expect(result).toContain("500");
+    // JPY uses ￥ (fullwidth) in Japanese locale
+    expect(result).toMatch(/[¥￥]/);
+  });
+
+  it("formats AUD correctly", () => {
+    const result = formatPrice(500, "AUD");
+    expect(result).toContain("500");
+    // AUD uses $ symbol
+    expect(result).toContain("$");
+  });
+
+  it("formats CAD correctly", () => {
+    const result = formatPrice(500, "CAD");
+    expect(result).toContain("500");
+    // CAD uses $ symbol
+    expect(result).toContain("$");
+  });
+
+  it("formats CNY correctly", () => {
+    const result = formatPrice(500, "CNY");
+    expect(result).toContain("500");
+    // CNY uses ¥ symbol
+    expect(result).toMatch(/[¥￥]/);
+  });
+
+  it("uses correct locale for each currency", () => {
+    // USD should use en-US locale
+    expect(formatPrice(1234567, "USD")).toBe("$1,234,567");
+    
+    // EUR should use en-DE locale
+    const eurResult = formatPrice(1234567, "EUR");
+    expect(eurResult).toContain("1");
+    expect(eurResult).toContain("234");
+    expect(eurResult).toContain("567");
+    
+    // INR should use en-IN locale
+    expect(formatPrice(1234567, "INR")).toBe("₹12,34,567");
+  });
+
+  it("handles zero amount", () => {
+    expect(formatPrice(0, "USD")).toBe("$0");
+    expect(formatPrice(0, "EUR")).toContain("0");
+  });
+
+  it("handles large amounts", () => {
+    expect(formatPrice(999999, "USD")).toBe("$999,999");
+    expect(formatPrice(1000000, "GBP")).toContain("1,000,000");
   });
 });
 

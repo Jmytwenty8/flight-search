@@ -26,6 +26,7 @@ interface FlightFiltersProps {
   airlines: string[];
   priceRange: { min: number; max: number };
   durationRange: { min: number; max: number };
+  currency?: string;
 }
 
 function FilterContent({
@@ -36,6 +37,7 @@ function FilterContent({
   airlines,
   priceRange,
   durationRange,
+  currency = "INR",
 }: FlightFiltersProps) {
   const [localPriceRange, setLocalPriceRange] = React.useState<[number, number]>([
     filters.minPrice ?? priceRange.min,
@@ -163,7 +165,7 @@ function FilterContent({
         <div className="flex items-center justify-between">
           <h4 className="font-medium text-sm">Price</h4>
           <span className="text-xs text-muted-foreground">
-            {formatPrice(localPriceRange[0])} - {formatPrice(localPriceRange[1])}
+            {formatPrice(localPriceRange[0], currency)} - {formatPrice(localPriceRange[1], currency)}
           </span>
         </div>
         <Slider
@@ -315,9 +317,11 @@ export function FlightFiltersMobile(props: FlightFiltersProps) {
 export function ActiveFilters({
   filters,
   onFilterChange,
+  currency = "INR",
 }: {
   filters: FlightFilter;
   onFilterChange: (filters: Partial<FlightFilter>) => void;
+  currency?: string;
 }) {
   const chips: { label: string; onRemove: () => void }[] = [];
 
@@ -337,8 +341,8 @@ export function ActiveFilters({
 
   // Price chips
   if (filters.minPrice !== undefined || filters.maxPrice !== undefined) {
-    const min = filters.minPrice ? formatPrice(filters.minPrice) : "Any";
-    const max = filters.maxPrice ? formatPrice(filters.maxPrice) : "Any";
+    const min = filters.minPrice ? formatPrice(filters.minPrice, currency) : "Any";
+    const max = filters.maxPrice ? formatPrice(filters.maxPrice, currency) : "Any";
     chips.push({
       label: `${min} - ${max}`,
       onRemove: () => onFilterChange({ minPrice: undefined, maxPrice: undefined }),

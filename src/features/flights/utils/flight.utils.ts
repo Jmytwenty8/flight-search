@@ -7,7 +7,19 @@ export function formatDuration(minutes: number): string {
 }
 
 export function formatPrice(price: number, currency = "INR"): string {
-  const locale = currency === "INR" ? "en-IN" : "en-US";
+  // Map currencies to their appropriate locales
+  const localeMap: Record<string, string> = {
+    USD: "en-US",
+    EUR: "en-DE",
+    GBP: "en-GB",
+    INR: "en-IN",
+    JPY: "ja-JP",
+    AUD: "en-AU",
+    CAD: "en-CA",
+    CNY: "zh-CN",
+  };
+  
+  const locale = localeMap[currency] || "en-US";
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,

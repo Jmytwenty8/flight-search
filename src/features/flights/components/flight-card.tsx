@@ -18,9 +18,10 @@ interface FlightCardProps {
   flight: FlightResult;
   rank?: number;
   isBestFlight?: boolean;
+  currency?: string;
 }
 
-export function FlightCard({ flight, rank, isBestFlight }: FlightCardProps) {
+export function FlightCard({ flight, rank, isBestFlight, currency = "INR" }: FlightCardProps) {
   const [expanded, setExpanded] = React.useState(false);
 
   const firstSegment = flight.flights[0];
@@ -110,7 +111,7 @@ export function FlightCard({ flight, rank, isBestFlight }: FlightCardProps) {
           <div className="flex items-center gap-4 pt-3 md:pt-0 border-t md:border-t-0 md:border-l md:pl-6 ml-auto shrink-0">
             <div className="text-right">
               <p className="text-2xl font-bold text-primary">
-                {formatPrice(flight.price)}
+                {formatPrice(flight.price, currency)}
               </p>
               <p className="text-xs text-muted-foreground">{flight.type}</p>
             </div>

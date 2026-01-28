@@ -11,6 +11,7 @@ import {
     useFlightSearchParams,
     useFlightFilters,
     useSortBy,
+    useCurrency,
 } from "@/features/flights/hooks";
 import { useFlightSearch } from "@/features/flights/queries";
 import {
@@ -23,11 +24,13 @@ import {
 import type { FlightSearchRequest } from "@/features/flights/schemas";
 import { Plane } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { CurrencySelector } from "@/components/currency-selector";
 
 export function FlightSearchPage() {
     const { searchRequest, setSearchRequest } = useFlightSearchParams();
     const { filters, setFilters, clearFilters, hasActiveFilters } = useFlightFilters();
     const { sortBy, setSortBy } = useSortBy();
+    const { currency, setCurrency } = useCurrency();
 
     const { data, isLoading, isError, error } = useFlightSearch(searchRequest);
 
@@ -110,7 +113,10 @@ export function FlightSearchPage() {
                                 <p className="text-xs text-muted-foreground">Find the best deals on flights</p>
                             </div>
                         </div>
-                        <ThemeToggle />
+                        <div className="flex items-center gap-2">
+                            <CurrencySelector value={currency} onValueChange={setCurrency} />
+                            <ThemeToggle />
+                        </div>
                     </div>
                 </div>
             </header>
@@ -138,6 +144,7 @@ export function FlightSearchPage() {
                                         airlines={airlines}
                                         priceRange={priceRange}
                                         durationRange={durationRange}
+                                        currency={currency}
                                     />
                                 </div>
                             )}
@@ -183,6 +190,7 @@ export function FlightSearchPage() {
                                     filteredFlights={processedFlights}
                                     isLoading={isLoading}
                                     filterRange={filterRange}
+                                    currency={currency}
                                 />
 
                                 {/* Mobile filters button */}
@@ -195,6 +203,7 @@ export function FlightSearchPage() {
                                         airlines={airlines}
                                         priceRange={priceRange}
                                         durationRange={durationRange}
+                                        currency={currency}
                                     />
                                 </div>
 
@@ -203,6 +212,7 @@ export function FlightSearchPage() {
                                     <ActiveFilters
                                         filters={filters}
                                         onFilterChange={setFilters}
+                                        currency={currency}
                                     />
                                 )}
 
@@ -215,6 +225,7 @@ export function FlightSearchPage() {
                                     onSortChange={setSortBy}
                                     totalResults={allFlights.length}
                                     filteredCount={processedFlights.length}
+                                    currency={currency}
                                 />
                             </div>
                         )}

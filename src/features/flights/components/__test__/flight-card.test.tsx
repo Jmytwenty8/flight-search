@@ -68,9 +68,25 @@ const mockFlight: FlightResult = {
 };
 
 describe("FlightCard", () => {
-  it("renders flight price", () => {
+  it("renders flight price with default INR currency", () => {
     render(<FlightCard flight={mockFlight} />);
     expect(screen.getByText("₹520")).toBeInTheDocument();
+  });
+
+  it("renders flight price with USD currency", () => {
+    render(<FlightCard flight={mockFlight} currency="USD" />);
+    expect(screen.getByText("$520")).toBeInTheDocument();
+  });
+
+  it("renders flight price with EUR currency", () => {
+    render(<FlightCard flight={mockFlight} currency="EUR" />);
+    const priceText = screen.getByText(/520/);
+    expect(priceText.textContent).toContain("€");
+  });
+
+  it("renders flight price with GBP currency", () => {
+    render(<FlightCard flight={mockFlight} currency="GBP" />);
+    expect(screen.getByText("£520")).toBeInTheDocument();
   });
 
   it("renders departure and arrival airport codes", () => {

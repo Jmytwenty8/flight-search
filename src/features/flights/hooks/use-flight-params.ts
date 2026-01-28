@@ -139,3 +139,20 @@ export function useSortBy() {
 
   return { sortBy, setSortBy };
 }
+
+export function useCurrency() {
+  const [currencyParams, setCurrencyParams] = useQueryStates({
+    currency: parseAsString.withDefault("INR"),
+  });
+
+  const currency = currencyParams.currency;
+
+  const setCurrency = useCallback(
+    (value: string) => {
+      setCurrencyParams({ currency: value });
+    },
+    [setCurrencyParams]
+  );
+
+  return { currency, setCurrency };
+}
