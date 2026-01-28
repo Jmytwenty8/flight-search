@@ -29,7 +29,13 @@ export function formatPrice(price: number, currency = "INR"): string {
 }
 
 export function formatTime(dateTimeString: string): string {
-  const time = dateTimeString.split(" ")[1];
+  if (!dateTimeString) return "";
+
+  // Handle both "HH:MM" and "YYYY-MM-DD HH:MM" formats
+  const time = dateTimeString.includes(" ")
+    ? dateTimeString.split(" ")[1]
+    : dateTimeString;
+
   if (!time) return "";
 
   const [hours, minutes] = time.split(":");
@@ -117,7 +123,10 @@ export function filterFlights(
       const [minHour, maxHour] = filters.departureTimeRange;
       const departureTime = flight.flights[0]?.departure_airport.time;
       if (departureTime) {
-        const timePart = departureTime.split(" ")[1];
+        // Handle both "HH:MM" and "YYYY-MM-DD HH:MM" formats
+        const timePart = departureTime.includes(" ")
+          ? departureTime.split(" ")[1]
+          : departureTime;
         if (timePart) {
           const hour = parseInt(timePart.split(":")[0], 10);
           if (hour < minHour || hour > maxHour) {
