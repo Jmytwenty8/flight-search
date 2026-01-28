@@ -126,7 +126,7 @@ export function FlightSearchPage() {
                 <div className="flex flex-col lg:flex-row gap-6">
                     {/* Left column - Search form + Filters (sticky on desktop) */}
                     <aside className="w-full lg:w-[340px] lg:shrink-0">
-                        <div className="lg:sticky lg:top-24 space-y-6">
+                        <div className="space-y-6">
                             <SearchForm
                                 initialValues={searchRequest || undefined}
                                 onSearch={handleSearch}

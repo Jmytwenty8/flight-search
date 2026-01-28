@@ -255,8 +255,8 @@ function FilterContent({
 // Desktop filters (sidebar card)
 export function FlightFiltersDesktop(props: FlightFiltersProps) {
   return (
-    <Card className="sticky top-4">
-      <CardHeader className="pb-3">
+    <Card className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-hidden flex flex-col">
+      <CardHeader className="pb-3 shrink-0">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-semibold flex items-center gap-2">
             <SlidersHorizontal className="h-4 w-4" />
@@ -269,7 +269,7 @@ export function FlightFiltersDesktop(props: FlightFiltersProps) {
           )}
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="overflow-y-auto flex-1">
         <FilterContent {...props} />
       </CardContent>
     </Card>
