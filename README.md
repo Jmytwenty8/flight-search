@@ -86,47 +86,53 @@ src/
 ## 🛠️ Tech Stack
 
 ### Core
-| Library | Version | Purpose |
-|---------|---------|---------|
-| [React](https://react.dev) | 19.2.0 | UI framework with React Compiler |
-| [TypeScript](https://www.typescriptlang.org) | 5.9 | Type safety |
-| [Vite](https://vite.dev) | 7.2.4 | Build tool & dev server |
+
+| Library                                      | Version | Purpose                          |
+| -------------------------------------------- | ------- | -------------------------------- |
+| [React](https://react.dev)                   | 19.2.0  | UI framework with React Compiler |
+| [TypeScript](https://www.typescriptlang.org) | 5.9     | Type safety                      |
+| [Vite](https://vite.dev)                     | 7.2.4   | Build tool & dev server          |
 
 ### Styling
-| Library | Version | Purpose |
-|---------|---------|---------|
-| [Tailwind CSS](https://tailwindcss.com) | 4.1 | Utility-first CSS |
-| [shadcn/ui](https://ui.shadcn.com) | - | UI component library |
-| [Radix UI](https://radix-ui.com) | Various | Accessible primitives |
-| [Lucide React](https://lucide.dev) | 0.563 | Icons |
+
+| Library                                 | Version | Purpose               |
+| --------------------------------------- | ------- | --------------------- |
+| [Tailwind CSS](https://tailwindcss.com) | 4.1     | Utility-first CSS     |
+| [shadcn/ui](https://ui.shadcn.com)      | -       | UI component library  |
+| [Radix UI](https://radix-ui.com)        | Various | Accessible primitives |
+| [Lucide React](https://lucide.dev)      | 0.563   | Icons                 |
 
 ### State & Data
-| Library | Version | Purpose |
-|---------|---------|---------|
-| [TanStack Query](https://tanstack.com/query) | 5.90 | Server state management |
-| [nuqs](https://nuqs.47ng.com) | 2.8.6 | URL search params state |
-| [Axios](https://axios-http.com) | 1.13 | HTTP client |
-| [Zod](https://zod.dev) | 4.3 | Schema validation |
+
+| Library                                      | Version | Purpose                 |
+| -------------------------------------------- | ------- | ----------------------- |
+| [TanStack Query](https://tanstack.com/query) | 5.90    | Server state management |
+| [nuqs](https://nuqs.47ng.com)                | 2.8.6   | URL search params state |
+| [Axios](https://axios-http.com)              | 1.13    | HTTP client             |
+| [Zod](https://zod.dev)                       | 4.3     | Schema validation       |
 
 ### UI Components
-| Library | Version | Purpose |
-|---------|---------|---------|
-| [React Day Picker](https://react-day-picker.js.org) | 9.13 | Date selection |
-| [Recharts](https://recharts.org) | 2.15 | Price graph visualization |
-| [cmdk](https://cmdk.paco.me) | 1.1 | Command menu for airport search |
-| [date-fns](https://date-fns.org) | 4.1 | Date formatting |
+
+| Library                                             | Version | Purpose                         |
+| --------------------------------------------------- | ------- | ------------------------------- |
+| [React Day Picker](https://react-day-picker.js.org) | 9.13    | Date selection                  |
+| [Recharts](https://recharts.org)                    | 2.15    | Price graph visualization       |
+| [cmdk](https://cmdk.paco.me)                        | 1.1     | Command menu for airport search |
+| [date-fns](https://date-fns.org)                    | 4.1     | Date formatting                 |
 
 ### Routing
-| Library | Version | Purpose |
-|---------|---------|---------|
-| [React Router](https://reactrouter.com) | 7.13 | Client-side routing |
+
+| Library                                 | Version | Purpose             |
+| --------------------------------------- | ------- | ------------------- |
+| [React Router](https://reactrouter.com) | 7.13    | Client-side routing |
 
 ### Testing
-| Library | Version | Purpose |
-|---------|---------|---------|
-| [Vitest](https://vitest.dev) | 4.0 | Test runner |
-| [Testing Library](https://testing-library.com) | 16.3 | Component testing |
-| [jsdom](https://github.com/jsdom/jsdom) | 27.4 | DOM simulation |
+
+| Library                                        | Version | Purpose           |
+| ---------------------------------------------- | ------- | ----------------- |
+| [Vitest](https://vitest.dev)                   | 4.0     | Test runner       |
+| [Testing Library](https://testing-library.com) | 16.3    | Component testing |
+| [jsdom](https://github.com/jsdom/jsdom)        | 27.4    | DOM simulation    |
 
 ## 🚀 Getting Started
 
@@ -138,17 +144,20 @@ src/
 ### Environment Setup
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd flight-search
 ```
 
 2. Install dependencies:
+
 ```bash
 pnpm install
 ```
 
 3. Create a `.env` file with your Amadeus API credentials:
+
 ```env
 AMADEUS_API_KEY=your_api_key
 AMADEUS_API_SECRET=your_api_secret
@@ -157,6 +166,7 @@ AMADEUS_API_SECRET=your_api_secret
 Get your free API credentials at [Amadeus for Developers](https://developers.amadeus.com).
 
 4. Start the development server:
+
 ```bash
 pnpm dev
 ```
@@ -165,15 +175,15 @@ pnpm dev
 
 ## 📜 Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server |
-| `pnpm build` | Build for production |
-| `pnpm preview` | Preview production build |
-| `pnpm test` | Run tests in watch mode |
-| `pnpm test:ui` | Run tests with Vitest UI |
-| `pnpm test:coverage` | Run tests with coverage |
-| `pnpm lint` | Run ESLint |
+| Command              | Description              |
+| -------------------- | ------------------------ |
+| `pnpm dev`           | Start development server |
+| `pnpm build`         | Build for production     |
+| `pnpm preview`       | Preview production build |
+| `pnpm test`          | Run tests in watch mode  |
+| `pnpm test:ui`       | Run tests with Vitest UI |
+| `pnpm test:coverage` | Run tests with coverage  |
+| `pnpm lint`          | Run ESLint               |
 
 ## 🔌 API Integration
 
@@ -217,6 +227,7 @@ pnpm test:ui
 ```
 
 Test files are co-located with components:
+
 ```
 flight-card.tsx
 flight-card.test.tsx
@@ -237,6 +248,7 @@ features/flights/
 ```
 
 This makes the codebase:
+
 - **Scalable** - Easy to add new features
 - **Maintainable** - Related code stays together
 - **Testable** - Clear boundaries for testing
@@ -250,6 +262,7 @@ http://localhost:5173/\?from\=DEL\&to\=BLR\&date\=2026-02-21\&type\=2\&adults\=1
 ```
 
 This enables:
+
 - Shareable search URLs
 - Browser back/forward navigation
 - Bookmarkable searches
@@ -259,6 +272,62 @@ This enables:
 
 - **Mobile**: Single column layout with bottom sheet filters
 - **Desktop**: Two-column layout with sticky sidebar
+
+## 🚀 Deployment
+
+### Deploying to Vercel
+
+The app uses Vercel Edge Functions to proxy Amadeus API requests and keep API credentials secure.
+
+**⚠️ IMPORTANT: Environment Variables**
+
+To prevent exposing your API keys in the client bundle:
+
+1. Go to your Vercel project → **Settings** → **Environment Variables**
+2. Add the following variables:
+   ```
+   AMADEUS_API_KEY=your_api_key
+   AMADEUS_API_SECRET=your_api_secret
+   ```
+3. **Select all environments**: Production, Preview, and Development
+4. Click **Save**
+
+**Edge Functions**
+
+The `/api/amadeus/*` routes are serverless Edge Functions that:
+
+- Keep your `AMADEUS_API_SECRET` secure (server-side only)
+- Handle OAuth token generation
+- Proxy requests to Amadeus API
+- Add CORS headers for browser requests
+
+These functions are located in:
+
+```
+api/
+├── amadeus/
+│   ├── auth.ts       # OAuth token endpoint
+│   ├── locations.ts  # Airport search proxy
+│   └── flights.ts    # Flight offers proxy
+```
+
+**Deploy**
+
+```bash
+# Install Vercel CLI (if not already installed)
+npm i -g vercel
+
+# Deploy
+vercel
+
+# Or push to your connected Git repository
+git push origin main
+```
+
+The `vercel.json` configuration ensures:
+
+- SPA routing works correctly (all routes → `index.html`)
+- API routes are preserved (`/api/*` → Edge Functions)
 
 ## 🤝 Contributing
 
