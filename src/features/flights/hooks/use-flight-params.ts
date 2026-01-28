@@ -75,22 +75,25 @@ export function useFlightFilters() {
 
   const setFilters = useCallback(
     (newFilters: Partial<FlightFilter>) => {
+      // Merge new filters with existing filters
+      const mergedFilters = { ...filters, ...newFilters };
+
       setParams({
-        stops: newFilters.stops && newFilters.stops.length > 0
-          ? newFilters.stops.join(",")
+        stops: mergedFilters.stops && mergedFilters.stops.length > 0
+          ? mergedFilters.stops.join(",")
           : null,
-        airlines: newFilters.airlines && newFilters.airlines.length > 0
-          ? newFilters.airlines.join(",")
+        airlines: mergedFilters.airlines && mergedFilters.airlines.length > 0
+          ? mergedFilters.airlines.join(",")
           : null,
-        maxPrice: newFilters.maxPrice ?? null,
-        minPrice: newFilters.minPrice ?? null,
-        maxDuration: newFilters.maxDuration ?? null,
-        depTime: newFilters.departureTimeRange
-          ? newFilters.departureTimeRange.join(",")
+        maxPrice: mergedFilters.maxPrice ?? null,
+        minPrice: mergedFilters.minPrice ?? null,
+        maxDuration: mergedFilters.maxDuration ?? null,
+        depTime: mergedFilters.departureTimeRange
+          ? mergedFilters.departureTimeRange.join(",")
           : null,
       });
     },
-    [setParams]
+    [setParams, filters]
   );
 
   const clearFilters = useCallback(() => {
