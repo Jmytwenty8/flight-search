@@ -22,6 +22,7 @@ import {
 } from "@/features/flights/utils";
 import type { FlightSearchRequest } from "@/features/flights/schemas";
 import { Plane } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function FlightSearchPage() {
     const { searchRequest, setSearchRequest } = useFlightSearchParams();
@@ -99,14 +100,17 @@ export function FlightSearchPage() {
             {/* Header */}
             <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 border-b">
                 <div className="container mx-auto px-4 py-4">
-                    <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-primary-foreground">
-                            <Plane className="h-5 w-5" />
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-primary-foreground">
+                                <Plane className="h-5 w-5" />
+                            </div>
+                            <div>
+                                <h1 className="text-xl font-bold">Flight Search</h1>
+                                <p className="text-xs text-muted-foreground">Find the best deals on flights</p>
+                            </div>
                         </div>
-                        <div>
-                            <h1 className="text-xl font-bold">Flight Search</h1>
-                            <p className="text-xs text-muted-foreground">Find the best deals on flights</p>
-                        </div>
+                        <ThemeToggle />
                     </div>
                 </div>
             </header>
