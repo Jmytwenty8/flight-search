@@ -106,13 +106,13 @@ describe("formatPrice", () => {
   it("uses correct locale for each currency", () => {
     // USD should use en-US locale
     expect(formatPrice(1234567, "USD")).toBe("$1,234,567");
-    
+
     // EUR should use en-DE locale
     const eurResult = formatPrice(1234567, "EUR");
     expect(eurResult).toContain("1");
     expect(eurResult).toContain("234");
     expect(eurResult).toContain("567");
-    
+
     // INR should use en-IN locale
     expect(formatPrice(1234567, "INR")).toBe("₹12,34,567");
   });

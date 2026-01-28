@@ -18,7 +18,7 @@ export function formatPrice(price: number, currency = "INR"): string {
     CAD: "en-CA",
     CNY: "zh-CN",
   };
-  
+
   const locale = localeMap[currency] || "en-US";
   return new Intl.NumberFormat(locale, {
     style: "currency",
