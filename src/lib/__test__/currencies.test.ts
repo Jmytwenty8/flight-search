@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { CURRENCIES, type Currency } from "../currencies";
+import { CURRENCIES } from "../currencies";
 
 describe("currencies", () => {
     it("exports CURRENCIES array", () => {
